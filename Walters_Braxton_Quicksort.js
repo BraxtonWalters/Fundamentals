@@ -1,20 +1,13 @@
 function quickSort(arr) {
-  //       5 <= 1
     if (arr.length <= 1) {
       return arr;
     }
-  
     const stack = [];
-    //  stack = [0, 4]
     stack.push(0);
     stack.push(arr.length - 1);
-    //           2 > 0
     while (stack.length > 0) { 
       const high = stack.pop();
       const low = stack.pop();
-      // high = 4
-      // low = 0 
-      //               [5, 1, 3, 4, 2], 0, 4
       const pivotIndex = partition(arr, low, high);
   
       if (pivotIndex - 1 > low) {
@@ -30,19 +23,12 @@ function quickSort(arr) {
   
     return arr;
   }
-  //      [5, 1, 3, 4, 2], 0, 4
   function partition(arr, low, high) {
-    //              pivot = 2
     const pivotPoint = arr[high];
-    //  i = -1
     let i = low - 1;
-  //     j = 0; 0 < 4; 
     for (let j = low; j < high; j++) {
-      //  5 < 2
-      //  1 < 2
       if (arr[j] < pivotPoint) {
         i++;
-//[5, 1, 3, 4, 2], 0, 1 
         swap(arr, i, j);
       }
     }
@@ -50,35 +36,62 @@ function quickSort(arr) {
     swap(arr, i + 1, high);
     return i + 1;
   }
-  //[5, 1, 3, 4, 2], 0, 1 
   function swap(arr, i, j) {
-    //    temp = 5
     const temp = arr[i];
-    //arr[0] = 1
     arr[i] = arr[j];
-    // arr[1] = 5
     arr[j] = temp;
-    // arr is now [1, 5, 3, 4, 2]
   }
-
+//   [5, 1, 3, 4, 2] 5
 function quickSort2(arr) {
+  // 5 <= 1
   if (arr.length <= 1) {
     return arr
   }
+  //  p = 2
   pivot = arr[arr.length - 1];
   let leftSide = [];
   let rightSide = [];
   for (let i = 0; i < arr.length - 1; i++) {
+    //    2 < 2
     if (arr[i] < pivot) {
+      //   [1]
       leftSide.push(arr[i]);
     }
     else {
+      //   [5, 3, 4, 2]
       rightSide.push(arr[i]);
     }
   }
-  
   return [].concat(quickSort2(leftSide), pivot, quickSort2(rightSide));
 }
 
 const randomArr = [5, 1, 3, 4, 2]
-console.log(quickSort2(randomArr));
+console.log(quickSort(randomArr));
+
+
+function quickSort3 (arr) {
+  //           rightSide = 4
+  let rightSide = arr.length - 1;
+  //  leftSide = 0
+  let leftSide = 0;
+
+  let index = partition1(arr, rightSide, leftSide)
+  if (leftSide < index - 1) {
+    return quickSort3(arr)
+  }
+  else if (index < rightSide) {
+    return quickSort3(arr)
+  }
+
+  // idx = partition1()
+  // recursively call quickSort for first half
+  // recursively call quickSort for second half
+}
+
+
+function partition1(arr, rSide, lSide) {
+  // pick a pivot 
+  // keep swapping until it is partitioned
+  // return the partition index 
+  let pivot = (rSide + lSide) / 2
+}
